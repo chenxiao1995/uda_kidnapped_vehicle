@@ -27,6 +27,9 @@ root
     |   particle_filter.cpp
     |   particle_filter.h
 ```
+The whole Particle filter algorithm flowchart is as followed:
+![flowchart](https://github.com/chenxiao1995/uda_kidnapped_vehicle/blob/master/CarND-Kidnapped-Vehicle-Project/Figure/Particle%20Filter%20Algorithm%20Flowchart.png)
+
 ## Initialization
 - add random Gaussian noise to each particle
 `std::normal_distribution<double> dist_x(x,std[0]);`
@@ -35,11 +38,7 @@ root
 ## Prediction:
 Add measurements to each particle and add random Gaussian noise
 - for each particle
-```
-x+=velocity/yaw_rate*(sin(theta+yaw_rate*delta_t)-sin(theta));
-y+=velocity/yaw_rate*(cos(theta)-cos(theta+yaw_rate*delta_t));
-theta+=yaw_rate*delta_t;
-```
+![prediction_step](https://github.com/chenxiao1995/uda_kidnapped_vehicle/blob/master/CarND-Kidnapped-Vehicle-Project/Figure/Prediction%20step.png)
 - add normal distribution noise
 ```
 std::default_random_engine gen;
@@ -51,10 +50,11 @@ theta+=dist_theta(gen);
 ## DataAssociation: 
 find the predicted measurement that is closest to each observed measurement and assign the observed measurement to this particular landmark
 ## updateWeights: 
-Update the weights of each particle using a multi-variate Gaussian distribution.
-[Multi-Variate Gaussian Distribution](https://wikimedia.org/api/rest_v1/media/math/render/svg/c66e6f6abd66698181e114a4b00da97446efd3c4)
+Update the weights of each particle using a multivariate-Gaussian distribution.
+![multivariate-gaussian](https://github.com/chenxiao1995/uda_kidnapped_vehicle/blob/master/CarND-Kidnapped-Vehicle-Project/Figure/Multivariate-Gaussian.png)
 ## resample: 
-resample particles with replacement with probability proportional to their weight
+resample particles with replacement with probability proportional to their weight using resampling wheel.pseudo-code as followed
+![resampling-wheel](https://github.com/chenxiao1995/uda_kidnapped_vehicle/blob/master/CarND-Kidnapped-Vehicle-Project/Figure/resampling%20wheel.png)
 
 
 ## Running the Code
