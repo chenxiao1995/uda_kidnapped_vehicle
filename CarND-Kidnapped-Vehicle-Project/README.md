@@ -4,6 +4,36 @@
 The robot has been kidnapped and transported to a new location! Luckily it has a map of this location, a (noisy) GPS estimate of its initial location, and lots of (noisy) sensor and control data.
 
 In this project I implement a 2 dimensional particle filter in C++. The particle filter will be given a map and some initial localization information (analogous to what a GPS would provide). At each time step the filter will also get observation and control data.
+# Implement the Code
+## Initialization
+- add random Gaussian noise to each particle
+`std::normal_distribution<double> dist_x(x,std[0]);`
+- Particle structure ( x , y , theta , weight , id )
+
+## Prediction:
+Add measurements to each particle and add random Gaussian noise
+- for each particle
+```
+x+=velocity/yaw_rate*(sin(theta+yaw_rate*delta_t)-sin(theta));
+y+=velocity/yaw_rate*(cos(theta)-cos(theta+yaw_rate*delta_t));
+theta+=yaw_rate*delta_t;
+```
+- add normal distribution noise
+```
+std::default_random_engine gen;
+x+=dist_x(gen);
+y+=dist_y(gen);
+theta+=dist_theta(gen);
+```
+
+## DataAssociation: 
+find the predicted measurement that is closest to each observed measurement and assign the observed measurement to this particular landmark
+## updateWeights: 
+Update the weights of each particle using a multi-variate Gaussian distribution.
+[Multi-Variate Gaussian Distribution](https://wikimedia.org/api/rest_v1/media/math/render/svg/c66e6f6abd66698181e114a4b00da97446efd3c4)
+## resample: 
+resample particles with replacement with probability proportional to their weight
+
 
 ## Running the Code
 This project involves the Term 2 Simulator which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases)
@@ -125,15 +155,5 @@ You can find the inputs to the particle filter in the `data` directory.
 
 > * Map data provided by 3D Mapping Solutions GmbH.
 
-## Success Criteria
-If your particle filter passes the current grading code in the simulator (you can make sure you have the current version at any time by doing a `git pull`), then you should pass!
+# Results
 
-The things the grading code is looking for are:
-
-
-1. **Accuracy**: your particle filter should localize vehicle position and yaw to within the values specified in the parameters `max_translation_error` and `max_yaw_error` in `src/main.cpp`.
-
-2. **Performance**: your particle filter should complete execution within the time of 100 seconds.
-
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
