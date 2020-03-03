@@ -149,7 +149,5 @@ You can find the inputs to the particle filter in the `data` directory.
 > * Map data provided by 3D Mapping Solutions GmbH.
 
 # Results
-<video id="video" controls="" preload="none">
-    <source id="mov" src="https://youtu.be/JsZ03NB37cA" type="video/mov">
-</video>
+![output](https://github.com/chenxiao1995/uda_kidnapped_vehicle/blob/master/CarND-Kidnapped-Vehicle-Project/Figure/kidnapped_vehicle_result.png)
 
