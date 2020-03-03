@@ -157,6 +157,6 @@ You can find the inputs to the particle filter in the `data` directory.
 
 # Results
 <video id="video" controls="" preload="none">
-    <source id="mp4" src="https://github.com/chenxiao1995/uda_kidnapped_vehicle/edit/master/CarND-Kidnapped-Vehicle-Project/result.mov" type="video/mp4">
+    <source id="mov" src="https://github.com/chenxiao1995/uda_kidnapped_vehicle/edit/master/CarND-Kidnapped-Vehicle-Project/result.mov" type="video/mov">
 </video>
 
